@@ -40,8 +40,8 @@ class NeuCodecConfig(PreTrainedConfig):
         Dimension for the vector quantization codebook.
     quantization_levels (`list[int]`, *optional*, defaults to `[4, 4, 4, 4, 4, 4, 4, 4]`):
         Levels for the vector quantization codebook.
-    input_sampling_rate (`int`, *optional*, defaults to 24000):
-        Sampling rate, in hertz (Hz), of the decoder's input audio waveform. NeuCodec encodes audio sampled at
+    input_sampling_rate (`int`, *optional*, defaults to 16000):
+        Sampling rate, in hertz (Hz), of the input audio waveform fed to the encoder. NeuCodec encodes audio sampled at
         `input_sampling_rate` (16kHz) but its decoder upsamples the reconstruction to a higher-fidelity
         `sampling_rate` (24kHz), while keeping the same 50Hz code frame rate.
 

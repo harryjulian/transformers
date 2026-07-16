@@ -55,8 +55,8 @@ class NeuCodecConfig(Xcodec2Config):
         Dimension for the vector quantization codebook.
     quantization_levels (`list[int]`, *optional*, defaults to `[4, 4, 4, 4, 4, 4, 4, 4]`):
         Levels for the vector quantization codebook.
-    input_sampling_rate (`int`, *optional*, defaults to 24000):
-        Sampling rate, in hertz (Hz), of the decoder's input audio waveform. NeuCodec encodes audio sampled at
+    input_sampling_rate (`int`, *optional*, defaults to 16000):
+        Sampling rate, in hertz (Hz), of the input audio waveform fed to the encoder. NeuCodec encodes audio sampled at
         `input_sampling_rate` (16kHz) but its decoder upsamples the reconstruction to a higher-fidelity
         `sampling_rate` (24kHz), while keeping the same 50Hz code frame rate.
 
@@ -154,7 +154,7 @@ class NeuCodecModel(Xcodec2Model, NeuCodecPreTrainedModel):
 
         # Acoustic embedding
         acoustic_hidden_states = self.acoustic_encoder(input_values)
-        
+
         # Concat embeddings
         hidden_states = torch.cat([semantic_hidden_states, acoustic_hidden_states], dim=1)
         hidden_states = self.fc_encoder(hidden_states.transpose(1, 2))
@@ -233,9 +233,7 @@ class NeuCodecModel(Xcodec2Model, NeuCodecPreTrainedModel):
             output_latents=True,
             return_dict=True,
         )
-        audio_values = self.decode(latents=encoder_outputs.latents, return_dict=True, **kwargs)[0][
-            ..., :output_length
-        ]
+        audio_values = self.decode(latents=encoder_outputs.latents, return_dict=True, **kwargs)[0][..., :output_length]
 
         return NeuCodecOutput(
             audio_values=audio_values,

@@ -34,6 +34,7 @@ from transformers.testing_utils import (
 
 if is_torch_available():
     import torch
+
     from transformers import NeuCodecModel
 
 
@@ -213,7 +214,6 @@ class NeuCodecModelTest(ModelTesterMixin, unittest.TestCase):
 @slow
 @require_torch
 class NeuCodecIntegrationTest(unittest.TestCase):
-    
     def setUp(self):
         self.fixtures_path = Path(__file__).parent.parent.parent / "fixtures/neucodec"
 

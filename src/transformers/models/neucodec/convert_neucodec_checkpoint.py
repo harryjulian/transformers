@@ -253,7 +253,7 @@ def convert_checkpoint(
     config = NeuCodecConfig(
         encoder_hidden_size=48,
         hidden_size=1024,
-        output_sampling_rate=24000,
+        sampling_rate=24000,
         semantic_model_config=AutoConfig.from_pretrained("facebook/w2v-bert-2.0", num_hidden_layers=16),
     )
 
